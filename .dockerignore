@@ -1,0 +1,11 @@
+.git
+.cache
+node_modules
+docs
+scripts
+tests
+*.md
+Dockerfile
+docker-compose.yml
+.dockerignore
+.gitignore

@@ -1,0 +1,553 @@
+/* ============================================================
+   views.css — 各视图专属布局（首页/学习/复习/语法/进度/设置）
+   ============================================================ */
+
+/* ---------- 通用页头 ---------- */
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- 首页（极简：大数字 + 一个主入口，一屏内紧凑） ---------- */
+.home-hero {
+  text-align: center;
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+.home-hero .big-num {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.home-hero .sub {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-1);
+}
+
+.home-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.home-grid .card {
+  padding: var(--space-4) var(--space-5);
+}
+
+.home-grid .card-sub {
+  margin-bottom: var(--space-3);
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* 键盘快捷键提示条（仅桌面/可悬停设备显示） */
+.kbd-hint {
+  display: none;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}
+
+.kbd-hint kbd {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--color-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .kbd-hint {
+    display: block;
+  }
+}
+
+/* ---------- 学习会话 ---------- */
+.learn-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.learn-top .back {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.learn-progress {
+  flex: 1;
+}
+
+.learn-counter {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ---------- 学习/复习会话：一屏自适应（尽量不滚动） ---------- */
+.learn-root {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - var(--header-height) - var(--space-7));
+}
+
+/* 学习会话卡片：Earthworm 式——无边框无阴影，纯文字居中，占满剩余高度 */
+.learn-card {
+  flex: 1;
+  min-height: 0;
+  text-align: center;
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* 学习卡片四行布局（规格 §9.2）：中文+词性 / 英文 / 音标 / 示例，颜色各不相同 */
+.word-chinese {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.pos-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.chinese-text {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.word-display {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  word-break: break-all;
+  line-height: 1.15;
+  color: var(--color-primary); /* 英文行：主蓝 */
+}
+
+.word-phonetic {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted); /* 音标行：灰 */
+  margin-top: var(--space-2);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.word-example {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-success); /* 示例行：绿 */
+  line-height: 1.6;
+}
+
+.word-example::before {
+  content: "“";
+}
+
+.word-example::after {
+  content: "”";
+}
+
+/* 复习中译英提示（同样式） */
+.review-chinese {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+.speak-btn {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  margin-top: var(--space-3);
+  transition: transform var(--duration-fast) var(--ease-spring);
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.12));
+}
+
+.speak-btn:active {
+  transform: scale(0.85);
+}
+
+.speak-btn.speaking {
+  animation: speak-pulse 600ms ease infinite;
+}
+
+@keyframes speak-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.learn-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.learn-actions .btn {
+  flex: 1;
+}
+
+/* 完成提示 */
+.done-banner {
+  text-align: center;
+  padding: var(--space-7) var(--space-5);
+}
+
+.done-banner .emoji {
+  font-size: 64px;
+  animation: done-bounce 600ms var(--ease-spring);
+}
+
+@keyframes done-bounce {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.done-banner h2 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--font-size-xl);
+}
+
+/* ---------- 复习 ---------- */
+.review-prompt {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  word-break: break-all;
+}
+
+.review-prompt .phonetic {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+.review-meta {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-2);
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.mode-card {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.mode-card:active {
+  transform: scale(0.95);
+}
+
+.mode-card .mode-icon {
+  font-size: 44px;
+}
+
+.mode-card .mode-name {
+  font-weight: 800;
+  margin-top: var(--space-3);
+  font-size: var(--font-size-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.mode-card .mode-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ---------- 无限模式（规格 §9.8） ---------- */
+.infinite-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.infinite-score {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.infinite-combo {
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  color: var(--color-warn);
+  white-space: nowrap;
+}
+
+.infinite-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- 已学单词列表（进度页，规格 §9.5） ---------- */
+.word-search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-family: inherit;
+  margin-bottom: var(--space-3);
+}
+
+.word-search:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.word-list {
+  list-style: none;
+  max-height: 50vh;
+  overflow-y: auto;
+  border-top: 1px solid var(--color-border);
+}
+
+.word-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--duration-fast) ease;
+}
+
+.word-item:hover {
+  background: var(--color-surface-2);
+}
+
+.word-item-en {
+  font-weight: 700;
+  color: var(--color-primary);
+  min-width: 90px;
+}
+
+.word-item-phonetic {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.word-item-zh {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  flex: 1;
+}
+
+/* ---------- 语法 ---------- */
+.grammar-lock {
+  text-align: center;
+  padding: var(--space-6) 0;
+}
+
+.grammar-lock .lock-icon {
+  font-size: 56px;
+}
+
+.grammar-unlock-bar {
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+.grammar-course {
+  margin-top: var(--space-4);
+}
+
+/* ---------- 进度 ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.stat-card .num {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.stat-card .label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* 桌面端网格展开 */
+@media (min-width: 768px) {
+  .home-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .home-hero {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-5);
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .learn-card {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .word-display {
+    font-size: 72px;
+  }
+
+  .mode-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+}
+
+/* 近 7 日柱状图（纯 CSS） */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  height: 120px;
+  margin-top: var(--space-4);
+}
+
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar-col .bar {
+  width: 100%;
+  max-width: 36px;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-success));
+  border-radius: 6px 6px 2px 2px;
+  transition: height var(--duration-normal) var(--ease-spring);
+}
+
+.bar-col .bar-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.bar-col .bar-val {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* ---------- 设置 ---------- */
+.settings-section {
+  margin-bottom: var(--space-5);
+}
+
+.settings-section > h3 {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+  text-transform: none;
+}
+
+.voice-row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.voice-row select {
+  min-width: 0;
+}
+
+.danger-zone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* 空态 */
+.empty-state {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.empty-state .emoji {
+  font-size: 48px;
+  margin-bottom: var(--space-3);
+}

@@ -1,0 +1,495 @@
+/* ============================================================
+   components.css — 通用组件（卡片/按钮/徽章/进度条/输入/选项/toast/字母格）
+   风格：极简留白（细边框、大圆角、轻柔阴影、单一强调色）
+   ============================================================ */
+
+/* 卡片 */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+.card-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.card-sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  line-height: 1.6;
+}
+
+/* 按钮 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 22px;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring),
+    background var(--duration-fast) ease, filter var(--duration-fast) ease;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active {
+  background: var(--color-primary-deep);
+}
+
+.btn-soft {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.btn-soft:active {
+  background: color-mix(in srgb, var(--color-primary-soft) 80%, var(--color-primary) 20%);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.btn-ghost:active {
+  background: var(--color-surface-2);
+}
+
+.btn-success {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-lg {
+  padding: 18px 24px;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-lg);
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* 徽章 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.badge-success { background: var(--color-success-soft); color: var(--color-success); }
+.badge-error { background: var(--color-error-soft); color: var(--color-error); }
+.badge-warn { background: var(--color-warn-soft); color: var(--color-warn); }
+.badge-primary { background: var(--color-primary-soft); color: var(--color-primary); }
+
+/* 进度条 */
+.progress-track {
+  height: 6px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-spring);
+}
+
+/* 大圆点指示器（学习进度） */
+.dot-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: var(--space-2) 0;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  transition: all var(--duration-fast) ease;
+}
+
+.dot.done {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  transform: scale(1.1);
+}
+
+.dot.current {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+/* 字母打字区（Earthworm 式：下划线大字母，无盒子） */
+.letter-cells {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: var(--space-6) 0 var(--space-5);
+}
+
+.letter-cell {
+  min-width: 0.6em;
+  height: 1.4em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6em;
+  font-weight: 700;
+  line-height: 1;
+  border-bottom: 3px solid var(--color-border);
+  color: transparent; /* 未敲：字母不可见，宽度占位防跳动 */
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+/* 敲对：绿色字母 + 绿下划线（弹出） */
+.letter-cell.lit {
+  color: var(--color-success);
+  border-bottom-color: var(--color-success);
+  animation: cell-pop var(--duration-fast) var(--ease-spring);
+}
+
+/* 当前输入位置：粉紫下划线闪烁（Earthworm 签名光标） */
+.letter-cell.cursor {
+  border-bottom-color: var(--color-accent);
+  animation: wink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 敲错：红色 + 抖动（Earthworm shake） */
+.letter-cell.err {
+  color: var(--color-error);
+  border-bottom-color: var(--color-error);
+  animation: cell-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes cell-pop {
+  0% { transform: scale(0.9); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes cell-shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* 隐藏的打字输入框（视觉上不显示，实际用来接收键盘/软键盘输入） */
+.typing-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 打字区（整词抖动容器） */
+.typing-area {
+  position: relative;
+  text-align: center;
+}
+
+.typing-area.shake {
+  animation: cell-shake 200ms ease;
+}
+
+/* 选项（复习四选一） */
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-size: var(--font-size-md);
+  font-family: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+}
+
+.option:hover {
+  border-color: var(--color-primary);
+}
+
+.option:active {
+  transform: scale(0.98);
+}
+
+.option.right {
+  border-color: var(--color-success);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.option.wrong {
+  border-color: var(--color-error);
+  background: var(--color-error-soft);
+  color: var(--color-error);
+  animation: cell-shake 200ms ease;
+}
+
+/* 表单 */
+.field {
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.field input[type="number"],
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-family: inherit;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.field input[type="number"]:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* 开关 */
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.switch-row:last-child {
+  border-bottom: none;
+}
+
+.switch-label {
+  font-size: var(--font-size-md);
+}
+
+.switch-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch .track {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast) ease;
+}
+
+.switch .track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.switch input:checked + .track {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.switch input:checked + .track::after {
+  transform: translateX(20px);
+}
+
+/* 滑块 */
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+/* toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tabbar-height) + var(--space-5));
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity var(--duration-normal) ease, transform var(--duration-normal) ease;
+  pointer-events: none;
+  max-width: 80vw;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* 成功粒子（庆祝） */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 90;
+  animation: confetti-burst 800ms var(--ease-spring) forwards;
+}
+
+@keyframes confetti-burst {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0.4); opacity: 0; }
+}
+
+/* 按钮内快捷键徽章（规格 §9.7：快捷键直接印在按钮上） */
+.btn kbd {
+  background: rgb(255 255 255 / 0.2);
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1.7;
+  margin-left: 8px;
+}
+
+.btn-soft kbd,
+.btn-ghost kbd {
+  background: var(--color-surface-2);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* 复习四选一：数字徽章 + 文本 */
+.option {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.option kbd {
+  flex-shrink: 0;
+  margin-top: 2px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--color-text-muted);
+}
+
+/* 复习模式卡片：名称 + 数字徽章 */
+.mode-card kbd {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--color-text-muted);
+}

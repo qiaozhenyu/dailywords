@@ -1,0 +1,101 @@
+/* ============================================================
+   DailyWords 设计令牌（唯一颜色/尺寸/字体来源，铁律：组件不得硬编码）
+   风格：句乐部(Earthworm) 极简打字风
+   - 纯白/深蓝黑底、大字号、下划线打字区、粉紫光标、蓝主按钮
+   - 字体：Nunito Bold（OFL 开源协议）圆润友好
+   亮色 + 深色（深色底 #05051d 为 Earthworm 标志性配色）
+   ============================================================ */
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Nunito-Bold.ttf") format("truetype");
+}
+
+:root {
+  /* 颜色（亮色：纯白底） */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #f5f5f5;
+  --color-border: #e5e5e5;
+  --color-text: #0a0a0a;
+  --color-text-muted: #737373;
+  --color-primary: #4e80ee;        /* Earthworm 主蓝 */
+  --color-primary-deep: #3662e3;   /* hover */
+  --color-primary-soft: #eef3fe;
+  --color-success: #16a34a;
+  --color-success-soft: #f0fdf4;
+  --color-error: #ef4444;
+  --color-error-soft: #fef2f2;
+  --color-warn: #d97706;
+  --color-warn-soft: #fffbeb;
+  --color-accent: #d946ef;         /* fuchsia 粉紫：打字光标/活动词 */
+
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* 圆角（Earthworm 偏小：0.5rem） */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* 字体（拉丁字母用 Nunito 圆润体，中文回退系统字体） */
+  --font-family: "Nunito", -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 40px;
+  --font-size-3xl: 56px;
+
+  /* 阴影（柔和弥散） */
+  --shadow-sm: 0 0 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-md: 0 2px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 4px 25px -5px rgb(0 0 0 / 0.12), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+
+  /* 动效 */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 240ms;
+
+  /* 布局 */
+  --content-max-width: 480px;
+  --tabbar-height: 60px;
+  --header-height: 52px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 深色：Earthworm 标志性深蓝黑 */
+    --color-bg: #05051d;
+    --color-surface: #0b0b2e;
+    --color-surface-2: #16163c;
+    --color-border: #26264f;
+    --color-text: #f5f5f5;
+    --color-text-muted: #9ca3af;
+    --color-primary: #4e80ee;
+    --color-primary-deep: #3662e3;
+    --color-primary-soft: #1c2547;
+    --color-success: #4ade80;
+    --color-success-soft: #0b2e1e;
+    --color-error: #f87171;
+    --color-error-soft: #3f0d0d;
+    --color-warn: #fbbf24;
+    --color-warn-soft: #33240a;
+    --color-accent: #e879f9;
+    --shadow-sm: 0 0 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 2px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 4px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+  }
+}
